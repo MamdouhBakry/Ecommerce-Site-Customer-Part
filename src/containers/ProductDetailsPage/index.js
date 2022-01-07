@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProductDetailsById } from "../../actions/product.action";
 import Layout from "../../components/Layout";
 import { IoIosArrowForward, IoIosStar, IoMdCart } from "react-icons/io";
@@ -9,10 +9,11 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { MaterialButton } from "../../components/MaterialUI";
 import "./style.css";
 import { generatePublicUrl } from "../../urlConfig";
-//import { addToCart } from "../../actions";
+import { addToCart } from "../../actions/cart.action";
 
 export default function ProductDetailsPage() {
   const { productId } = useParams();
+  const navigate = useNavigate();
 
   console.log("productId", productId);
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function ProductDetailsPage() {
         <div className="flexRow">
           <div className="verticalImageStack">
             {product.productDetails.productPictures.map((thumb, index) => (
-              <div className="thumbnail">
+              <div key={index} className="thumbnail">
                 <img src={generatePublicUrl(thumb.img)} alt={thumb.img} />
               </div>
             ))}
@@ -62,8 +63,8 @@ export default function ProductDetailsPage() {
                 onClick={() => {
                   const { _id, name, price } = product.productDetails;
                   const img = product.productDetails.productPictures[0].img;
-                  //   dispatch(addToCart({ _id, name, price, img }));
-                  //   props.history.push(`/cart`);
+                  dispatch(addToCart({ _id, name, price, img }));
+                  navigate("/cart");
                 }}
               />
               <MaterialButton

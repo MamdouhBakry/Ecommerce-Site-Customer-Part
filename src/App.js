@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { isUserLoggedIn } from "./actions/auth.action";
 import ProductDetailsPage from "./containers/ProductDetailsPage";
+import CartPage from "./containers/CartPage";
+import { updateCart } from "./actions/cart.action";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,11 +18,16 @@ function App() {
       dispatch(isUserLoggedIn());
     }
   }, [auth.authenticate]);
+
+  useEffect(() => {
+    dispatch(updateCart());
+  }, [auth.authenticate]);
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" exact element={<HomePage />} />
+          <Route path="/cart" exact element={<CartPage />} />
           <Route
             path="/:productSlug/:productId/p"
             exact

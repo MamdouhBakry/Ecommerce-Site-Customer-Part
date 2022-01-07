@@ -1,6 +1,13 @@
 .card {
-  width: 100%;
+  width: calc(100%-40px);
+  margin: 20px 20px;
   background: #fff;
   border: 1px solid #cecece;
   box-shadow: 0 0 2px 2px #cecece;
+}
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px;
+  border-bottom: 1px solid #cecece;
 }

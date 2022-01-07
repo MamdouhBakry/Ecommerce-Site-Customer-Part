@@ -1,0 +1,10 @@
+.cartContainer {
+  display: flex;
+  max-width: 1420px;
+  margin: 15px auto;
+  justify-content: space-between;
+}
+/* .cartItemDetails {
+  display: flex;
+  justify-content: space-between !important;
+} */

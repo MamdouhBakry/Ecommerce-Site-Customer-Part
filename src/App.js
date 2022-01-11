@@ -8,6 +8,7 @@ import { isUserLoggedIn } from "./actions/auth.action";
 import ProductDetailsPage from "./containers/ProductDetailsPage";
 import CartPage from "./containers/CartPage";
 import { updateCart } from "./actions/cart.action";
+import CheckoutPage from "./containers/CheckoutPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<HomePage />} />
           <Route path="/cart" exact element={<CartPage />} />
+          <Route path="/checkout" exact element={<CheckoutPage />} />
           <Route
             path="/:productSlug/:productId/p"
             exact

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { generatePublicUrl } from "../../../urlConfig";
 import "./style.css";
 export default function CartItem(props) {
-  const [qty, setQty] = useState(props.cartItems.qty);
-  const { _id, name, price, img } = props.cartItems;
+  const [qty, setQty] = useState(props.cartItem.qty);
+  const { _id, name, price, img } = props.cartItem;
 
   const onQuantityIncrement = () => {
     setQty(qty + 1);

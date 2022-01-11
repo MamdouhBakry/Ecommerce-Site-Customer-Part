@@ -1,29 +1,31 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { getProductDetailsById } from "../../actions/product.action";
+import { getProductDetailsById } from "../../actions";
 import Layout from "../../components/Layout";
 import { IoIosArrowForward, IoIosStar, IoMdCart } from "react-icons/io";
 import { BiRupee } from "react-icons/bi";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { MaterialButton } from "../../components/MaterialUI";
 import "./style.css";
-import { generatePublicUrl } from "../../urlConfig";
 import { addToCart } from "../../actions/cart.action";
+import { useNavigate, useParams } from "react-router-dom";
+import { generatePublicUrl } from "../../urlConfig";
 
-export default function ProductDetailsPage() {
-  const { productId } = useParams();
-  const navigate = useNavigate();
-
-  console.log("productId", productId);
+const ProductDetailsPage = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const product = useSelector((state) => state.product);
+  const { productId } = useParams();
+
   useEffect(() => {
     const payload = {
-      params: { productId },
+      params: {
+        productId,
+      },
     };
     dispatch(getProductDetailsById(payload));
   }, []);
+
   if (Object.keys(product.productDetails).length === 0) {
     return null;
   }
@@ -35,7 +37,7 @@ export default function ProductDetailsPage() {
         <div className="flexRow">
           <div className="verticalImageStack">
             {product.productDetails.productPictures.map((thumb, index) => (
-              <div key={index} className="thumbnail">
+              <div className="thumbnail">
                 <img src={generatePublicUrl(thumb.img)} alt={thumb.img} />
               </div>
             ))}
@@ -64,7 +66,7 @@ export default function ProductDetailsPage() {
                   const { _id, name, price } = product.productDetails;
                   const img = product.productDetails.productPictures[0].img;
                   dispatch(addToCart({ _id, name, price, img }));
-                  navigate("/cart");
+                  navigate(`/cart`);
                 }}
               />
               <MaterialButton
@@ -162,4 +164,6 @@ export default function ProductDetailsPage() {
       </div>
     </Layout>
   );
-}
+};
+
+export default ProductDetailsPage;

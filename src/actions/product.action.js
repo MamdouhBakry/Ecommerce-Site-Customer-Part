@@ -51,6 +51,7 @@ export const getProductPage = (payload) => {
 };
 
 export const getProductDetailsById = (payload) => {
+  console.log("payload", payload);
   return async (dispatch) => {
     dispatch({ type: productConstants.GET_PRODUCT_DETAILS_BY_ID_REQUEST });
     let res;

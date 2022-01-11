@@ -10,12 +10,9 @@ import {
   DropdownMenu,
 } from "../MaterialUI";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  login,
-  signout,
-  getCartItems,
-  signup as _signup,
-} from "../../actions/auth.action";
+import { login, signout, signup as _signup } from "../../actions/auth.action";
+import { getCartItems } from "../../actions/cart.action";
+import { Link } from "react-router-dom";
 //import Cart from "../UI/Cart";
 
 const Header = (props) => {
@@ -30,7 +27,7 @@ const Header = (props) => {
   const dispatch = useDispatch();
 
   // state cart value
-  //const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   const userSignup = () => {
     const user = { firstName, lastName, email, password };
@@ -42,15 +39,18 @@ const Header = (props) => {
     ) {
       return;
     }
-
-    //dispatch(_signup(user));
+    dispatch(_signup(user));
   };
 
   const userLogin = () => {
     if (signup) {
       userSignup();
     } else {
-      dispatch(login({ email, password }));
+      if (email === "" || password === "") {
+        return;
+      } else {
+        dispatch(login({ email, password }));
+      }
     }
   };
 
@@ -64,9 +64,9 @@ const Header = (props) => {
     }
   }, [auth.authenticate]);
 
-  // useEffect(() => {
-  //   dispatch(getCartItems());
-  // }, []);
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, []);
 
   const renderLoggedInMenu = () => {
     return (
@@ -130,7 +130,7 @@ const Header = (props) => {
                 setLoginModal(true);
                 setSignup(true);
               }}
-              style={{ color: "#2874f0" }}
+              style={{ color: "#2874f0", cursor: "pointer" }}
             >
               Sign Up
             </a>
@@ -262,11 +262,15 @@ const Header = (props) => {
             ]}
           />
           <div>
-            <a href={`/cart`} className="cart">
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/cart`}
+              className="cart"
+            >
               {/* <Cart count={Object.keys(cart.cartItems).length} /> */}
-              <IoIosCart />
+              <IoIosCart style={{ fontSize: "1.2rem" }} />
               <span style={{ margin: "0 10px" }}>Cart</span>
-            </a>
+            </Link>
           </div>
         </div>
         {/* right side menu ends here */}

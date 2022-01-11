@@ -14,6 +14,7 @@ const initState = {
 };
 
 export default (state = initState, action) => {
+  console.log(action);
   switch (action.type) {
     case cartConstants.ADD_TO_CART_REQUEST:
       return {

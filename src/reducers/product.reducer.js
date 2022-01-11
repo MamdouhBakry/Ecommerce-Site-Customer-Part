@@ -16,6 +16,7 @@ const initState = {
 };
 
 export default (state = initState, action) => {
+  console.log(action);
   switch (action.type) {
     case productConstants.GET_PRODUCTS_BY_SLUG:
       return {

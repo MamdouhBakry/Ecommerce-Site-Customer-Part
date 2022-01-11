@@ -2,8 +2,7 @@
   width: calc(100%-40px);
   margin: 20px 20px;
   background: #fff;
-  border: 1px solid #cecece;
-  box-shadow: 0 0 2px 2px #cecece;
+  box-shadow: 0 1 1px 1px #cecece !important;
 }
 .cardHeader {
   display: flex;

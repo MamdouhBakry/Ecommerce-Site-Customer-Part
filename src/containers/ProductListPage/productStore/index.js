@@ -32,6 +32,7 @@ export default function ProductStore() {
               {product.productsByPrice[key].map((product) => {
                 return (
                   <Link
+                    style={{ textDecoration: "none", color: "#000" }}
                     to={`/${product.slug}/${product._id}/p`}
                     key={product._id}
                     className="productContainer"

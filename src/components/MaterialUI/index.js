@@ -35,7 +35,7 @@ const MaterialInput = (props) => {
       </label>
       <div style={{ display: "flex" }}>
         <input
-          className="unput"
+          className="input"
           type={props.type}
           value={props.value}
           onChange={props.onChange}

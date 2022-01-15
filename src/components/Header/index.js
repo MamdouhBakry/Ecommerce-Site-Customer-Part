@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, signout, signup as _signup } from "../../actions/auth.action";
 import { getCartItems } from "../../actions/cart.action";
 import { Link } from "react-router-dom";
-//import Cart from "../UI/Cart";
+import Cart from "../UI/Cart";
 
 const Header = (props) => {
   const [loginModal, setLoginModal] = useState(false);
@@ -213,8 +213,18 @@ const Header = (props) => {
           <a href="">
             <img src={flipkartLogo} className="logoimage" alt="" />
           </a>
-          <a style={{ marginTop: "-10px" }}>
-            <span className="exploreText">Explore</span>
+          <a
+            style={{
+              marginTop: "-10px",
+              fontWeight: "bolder",
+            }}
+          >
+            <span
+              style={{ color: "#b4cbf0", fontSize: "11px" }}
+              className="exploreText"
+            >
+              Explore
+            </span>
             <span className="plusText">Plus</span>
             <img src={goldenStar} className="goldenStar" alt="" />
           </a>
@@ -267,8 +277,7 @@ const Header = (props) => {
               to={`/cart`}
               className="cart"
             >
-              {/* <Cart count={Object.keys(cart.cartItems).length} /> */}
-              <IoIosCart style={{ fontSize: "1.2rem" }} />
+              <Cart count={Object.keys(cart.cartItems).length} />
               <span style={{ margin: "0 10px" }}>Cart</span>
             </Link>
           </div>

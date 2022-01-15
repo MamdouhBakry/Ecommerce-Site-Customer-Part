@@ -41,6 +41,7 @@ export default function ProductPage() {
         style={{
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
           flexWrap: "wrap",
           margin: "10px 0",
         }}
@@ -58,9 +59,9 @@ export default function ProductPage() {
               >
                 <img
                   style={{
-                    height: "70%",
+                    height: "90%",
                     width: "80%",
-                    margin: "auto",
+                    margin: "10px 3px 100px 35px",
                     objectFit: "contain",
                   }}
                   src={product.img}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAddress } from "../../actions/user.action";
+import { addOrder, getAddress } from "../../actions/user.action";
 import { getCartItems } from "../../actions/cart.action";
 import Layout from "../../components/Layout";
 import {
@@ -14,6 +14,7 @@ import CartPage from "../CartPage";
 import AddressForm from "./AddressForm";
 
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 /**
  * @author
@@ -109,6 +110,7 @@ const CheckoutPage = (props) => {
   const [confirmOrder, setConfirmOrder] = useState(false);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onAddressSubmit = (addr) => {
     setSelectedAddress(addr);
@@ -167,7 +169,7 @@ const CheckoutPage = (props) => {
     };
 
     console.log(payload);
-    //dispatch(addOrder(payload));
+    dispatch(addOrder(payload));
     setConfirmOrder(true);
   };
 
@@ -187,8 +189,11 @@ const CheckoutPage = (props) => {
   }, [user.address]);
 
   useEffect(() => {
-    if (confirmOrder && user.placedOrderId) {
-      props.history.push(`/order_details/${user.placedOrderId}`);
+    // if (confirmOrder && user.placedOrderId) {
+    //   navigate(`/order_details/${user.placedOrderId}`);
+    // }
+    if (confirmOrder) {
+      navigate(`/order_details/${user.placedOrderId}`);
     }
   }, [user.placedOrderId]);
 

@@ -116,6 +116,7 @@ export const getOrders = () => {
 
 // single order with complete info and delivery location
 export const getOrder = (payload) => {
+  console.log("payload", payload);
   return async (dispatch) => {
     try {
       const res = await axiosInstance.post(`/getOrder`, payload);

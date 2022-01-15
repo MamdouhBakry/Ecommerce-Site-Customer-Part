@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import Layout from "../../components/Layout";
 import getParams from "../../utils/getParams";
+import ClothingAndAccessories from "./ClothingAndAccessories";
 import ProductPage from "./productPage";
 import ProductStore from "./productStore";
 import "./style.css";
@@ -20,7 +21,7 @@ export default function ProductListPage(props) {
         content = <ProductPage {...props} />;
         break;
       default:
-        content = null;
+        content = <ClothingAndAccessories {...props} />;
     }
     return content;
   };

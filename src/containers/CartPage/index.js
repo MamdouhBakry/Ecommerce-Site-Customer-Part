@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card/index";
 import CartItem from "./CartItem";
+import PriceDetails from "../../components/PriceDetails/index";
 import { addToCart, getCartItems } from "../../actions/cart.action";
 import "./style.css";
 import { MaterialButton } from "../../components/MaterialUI";
 import { useNavigate } from "react-router-dom";
 
-export default function CartPage() {
+export default function CartPage(props) {
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
   const [cartItems, setCartItems] = useState(cart.cartItems);
@@ -35,6 +36,21 @@ export default function CartPage() {
     const { name, price, img } = cartItems[_id];
     dispatch(addToCart({ _id, name, price, img }, -1));
   };
+  if (props.onlyCartItems) {
+    return (
+      <>
+        {Object.keys(cartItems).map((key, index) => (
+          <CartItem
+            key={index}
+            cartItem={cartItems[key]}
+            onQuantityInc={onQuantityIncrement}
+            onQuantityDec={onQuantityDecrement}
+            // onRemoveCartItem={onRemoveCartItem}
+          />
+        ))}
+      </>
+    );
+  }
   return (
     <Layout>
       <div className="cartContainer" style={{ alignItems: "flex-start" }}>
@@ -72,7 +88,7 @@ export default function CartPage() {
             </div>
           </div>
         </Card>
-        {/* <PriceDetails
+        <PriceDetails
           totalItem={Object.keys(cart.cartItems).reduce(function (qty, key) {
             return qty + cart.cartItems[key].qty;
           }, 0)}
@@ -80,7 +96,7 @@ export default function CartPage() {
             const { price, qty } = cart.cartItems[key];
             return totalPrice + price * qty;
           }, 0)}
-        /> */}
+        />
       </div>
     </Layout>
   );

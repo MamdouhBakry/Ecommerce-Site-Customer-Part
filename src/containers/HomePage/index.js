@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <>
       <Layout>
-        <div>Home Page</div>
+        <div style={{ height: "500px" }}>Home Page</div>
       </Layout>
     </>
   );

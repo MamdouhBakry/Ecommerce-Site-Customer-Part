@@ -3,19 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getProductBySlug } from "../../../actions/product.action";
 import { generatePublicUrl } from "../../../urlConfig";
+import { MaterialButton } from "../../../components/MaterialUI/index";
 import Card from "../../../components/UI/Card";
+import Rating from "../../../components/UI/Rating";
+import Price from "../../../components/UI/Price";
 import "./style.css";
 
 export default function ProductStore() {
   const dispatch = useDispatch();
   const { slug } = useParams();
   const product = useSelector((state) => state.product);
-  const [priceRange, setPriceRange] = useState({
-    under5k: 5000,
-    under10k: 10000,
-    under15k: 15000,
-    under20k: 20000,
-  });
+  console.log("product", product);
+  const priceRange = product.priceRange;
   useEffect(() => {
     dispatch(getProductBySlug(slug));
   }, []);
@@ -24,9 +23,21 @@ export default function ProductStore() {
       {Object.keys(product.productsByPrice).map((key, index) => {
         return (
           <Card
-            key={index}
             headerLeft={`${slug} mobile under ${priceRange[key]}`}
-            headerRight={<button>View All</button>}
+            headerRight={
+              <MaterialButton
+                title={"VIEW ALL"}
+                style={{
+                  width: "96px",
+                }}
+                bgColor="#2874f0"
+                fontSize="12px"
+              />
+            }
+            style={{
+              width: "calc(100% - 40px)",
+              margin: "20px",
+            }}
           >
             <div style={{ display: "flex" }}>
               {product.productsByPrice[key].map((product) => {
@@ -46,10 +57,9 @@ export default function ProductStore() {
                     <div className="productInfo">
                       <div style={{ margin: "5px 0" }}>{product.name}</div>
                       <div>
-                        <span>4.3 </span>
-                        <span>3353</span>
+                        <Rating value="4.3" /> <span>3353</span>
                       </div>
-                      <div className="productPrice">{product.price}</div>
+                      <Price value={product.price} />
                     </div>
                   </Link>
                 );

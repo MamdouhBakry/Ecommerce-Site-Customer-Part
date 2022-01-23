@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import MenuHeader from "../../components/MenuHeader";
@@ -50,7 +50,23 @@ import m5 from "../../flipkart images/m5.jpeg";
 import m6 from "../../flipkart images/m6.jpeg";
 
 import payment from "../../flipkart images/payment.png";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { getProductBySlug } from "../../actions/product.action";
+import Card from "../../components/UI/Card";
+import { MaterialButton } from "../../components/MaterialUI";
+import Rating from "../../components/UI/Rating";
+import Price from "../../components/UI/Price";
+import { generatePublicUrl } from "../../urlConfig";
 export default function HomePage() {
+  const dispatch = useDispatch();
+  const { slug } = useParams();
+  const product = useSelector((state) => state.product);
+  console.log("product", product);
+  const priceRange = product.priceRange;
+  useEffect(() => {
+    dispatch(getProductBySlug(slug));
+  }, []);
   return (
     <Layout>
       {/* banner section */}
@@ -64,437 +80,55 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* Mobile section */}
-      <section>
-        <div className="card">
-          <div className="common-heading">
-            <div className="common-heading-left">
-              <h1>Best Battery Phones</h1>
-              <h2>More than 4000mAh</h2>
+      {Object.keys(product.productsByPrice).map((key, index) => {
+        return (
+          <Card
+            headerLeft={`${slug} mobile under ${priceRange[key]}`}
+            headerRight={
+              <MaterialButton
+                title={"VIEW ALL"}
+                style={{
+                  width: "96px",
+                }}
+                bgColor="#2874f0"
+                fontSize="12px"
+              />
+            }
+            style={{
+              width: "calc(100% - 40px)",
+              margin: "20px",
+            }}
+          >
+            <div style={{ display: "flex" }}>
+              {product.productsByPrice[key].map((product) => {
+                return (
+                  <Link
+                    style={{ textDecoration: "none", color: "#000" }}
+                    to={`/${product.slug}/${product._id}/p`}
+                    key={product._id}
+                    className="productContainer"
+                  >
+                    <div className="productImgContainer">
+                      <img
+                        src={generatePublicUrl(product.productPictures[0].img)}
+                        alt=""
+                      />
+                    </div>
+                    <div className="productInfo">
+                      <div style={{ margin: "5px 0" }}>{product.name}</div>
+                      <div>
+                        <Rating value="4.3" /> <span>3353</span>
+                      </div>
+                      <Price value={product.price} />
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
-            <div className="common-heading-right">
-              <button>view all</button>
-            </div>
-          </div>
-          <div className="common-row">
-            <div className="common-col">
-              <img src={p1} alt="mobile" />
-              <h3>Poco m2 pro</h3>
-              <h4>5000mAh Bttery</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                13999
-              </h6>
-            </div>
-            <div className="common-col">
-              <img src={p2} alt="mobile" />
-              <h3>techo spark</h3>
-              <h4>4500mAh Bttery</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                14999
-              </h6>
-            </div>
-            <div className="common-col">
-              <img src={p3} alt="mobile" />
-              <h3>vivio</h3>
-              <h4>5000mAh Bttery</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                15999
-              </h6>
-            </div>
-            <div className="common-col">
-              <img src={p4} alt="mobile" />
-              <h3>samsung</h3>
-              <h4>5500mAh Bttery</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                23999
-              </h6>
-            </div>
-            <div className="common-col">
-              <img src={p5} alt="mobile" />
-              <h3>realme</h3>
-              <h4>5000mAh Bttery</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                13999
-              </h6>
-            </div>
-            <div className="common-col">
-              <img src={p6} alt="mobile" />
-              <h3>oppo pro</h3>
-              <h4>5200mAh Bttery</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                18999
-              </h6>
-            </div>
-            <div className="common-col">
-              <img src={p7} alt="mobile" />
-              <h3>samsung</h3>
-              <h4>5000mAh Bttery</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                11999
-              </h6>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* headphones and speaker section */}
-      <section>
-        <div className="card">
-          <div className="common-heading">
-            <div className="common-heading-left">
-              <h1>Top Deals on Electronics</h1>
-              <h2>Up to 70% OFF</h2>
-            </div>
-            <div className="common-heading-right">
-              <button>view all</button>
-            </div>
-          </div>
-          <div className="common-row">
-            <div className="common-col col-headphones">
-              <img src={s1} alt="mobile" />
-              <h3> Bluetooth Headphones</h3>
-              <h4>new lancher</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                399
-              </h6>
-            </div>
-            <div className="common-col col-headphones">
-              <img src={s2} alt="mobile" />
-              <h3>techo speaker</h3>
-              <h4>new lancher</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                499
-              </h6>
-            </div>
-            <div className="common-col col-headphones">
-              <img src={s3} alt="mobile" />
-              <h3>true wireless</h3>
-              <h4>new lancher</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                159
-              </h6>
-            </div>
-            <div className="common-col col-headphones">
-              <img src={s4} alt="mobile" />
-              <h3>wired hearphones</h3>
-              <h4>new lancher</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                239
-              </h6>
-            </div>
-            <div className="common-col col-headphones">
-              <img src={s5} alt="mobile" />
-              <h3>speaker</h3>
-              <h4>new lancher</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                139
-              </h6>
-            </div>
-            <div className="common-col col-headphones">
-              <img src={s6} alt="mobile" />
-              <h3>Bluetooth Headphones</h3>
-              <h4>new lancher</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                1899
-              </h6>
-            </div>
-            <div className="common-col col-headphones">
-              <img src={s7} alt="mobile" />
-              <h3>Bluetooth Headphones</h3>
-              <h4>new lancher</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                999
-              </h6>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* mens clothing */}
-      <section>
-        <div className="card">
-          <div className="common-heading">
-            <div className="common-heading-left">
-              <h1>Top Picks On Men's Clothing </h1>
-              <h2>Up to 50% OFF</h2>
-            </div>
-            <div className="common-heading-right">
-              <button>view all</button>
-            </div>
-          </div>
-          <div className="common-row">
-            <div className="common-col col-men">
-              <img src={c1} alt="mobile" />
-              <h3> t-shirt</h3>
-              <h4> up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                399
-              </h6>
-            </div>
-            <div className="common-col col-men">
-              <img src={c2} alt="mobile" />
-              <h3> t-shirt black</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                499
-              </h6>
-            </div>
-            <div className="common-col col-men">
-              <img src={c3} alt="mobile" />
-              <h3>cap</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                159
-              </h6>
-            </div>
-            <div className="common-col col-men">
-              <img src={c4} alt="mobile" />
-              <h3> cool cap</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                239
-              </h6>
-            </div>
-            <div className="common-col col-men">
-              <img src={c5} alt="mobile" />
-              <h3>jeans</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                139
-              </h6>
-            </div>
-            <div className="common-col col-men">
-              <img src={c6} alt="mobile" />
-              <h3>shirt</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                1899
-              </h6>
-            </div>
-            <div className="common-col col-men">
-              <img src={c7} alt="mobile" />
-              <h3>short</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                999
-              </h6>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Furniture Bestsellers section */}
-      <section>
-        <div className="card">
-          <div className="common-heading">
-            <div className="common-heading-left">
-              <h1>Furniture Bestsellers section </h1>
-              <h2>Up to 15% OFF</h2>
-            </div>
-            <div className="common-heading-right">
-              <button>view all</button>
-            </div>
-          </div>
-          <div className="common-row">
-            <div className="common-col col-furniture">
-              <img src={f1} alt="mobile" />
-              <h3> swing chair</h3>
-              <h4> up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                33399
-              </h6>
-            </div>
-            <div className="common-col col-furniture">
-              <img src={f2} alt="mobile" />
-              <h3>bean bag cover</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                24499
-              </h6>
-            </div>
-            <div className="common-col col-furniture">
-              <img src={f3} alt="mobile" />
-              <h3>furniture</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                21159
-              </h6>
-            </div>
-            <div className="common-col col-furniture">
-              <img src={f4} alt="mobile" />
-              <h3> soffaa</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                17239
-              </h6>
-            </div>
-            <div className="common-col col-furniture">
-              <img src={f5} alt="mobile" />
-              <h3>chair</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                5139
-              </h6>
-            </div>
-            <div className="common-col col-furniture">
-              <img src={f6} alt="mobile" />
-              <h3>mirror table</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                14899
-              </h6>
-            </div>
-            <div className="common-col col-furniture">
-              <img src={f7} alt="mobile" />
-              <h3>swing chair</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                1999
-              </h6>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* trending offers section */}
-      <section>
-        <div className="card">
-          <div className="common-heading">
-            <div className="common-heading-left">
-              <h1>trending offers</h1>
-              <h2>Up to 25% OFF</h2>
-            </div>
-            <div className="common-heading-right">
-              <button>view all</button>
-            </div>
-          </div>
-          <div className="common-row">
-            <div className="common-col col-tranding">
-              <img src={w1} alt="mobile" />
-              <h3> cotton shirt</h3>
-              <h4> up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                399
-              </h6>
-            </div>
-            <div className="common-col col-tranding">
-              <img src={w2} alt="mobile" />
-              <h3>fast-trsct watch</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                499
-              </h6>
-            </div>
-            <div className="common-col col-tranding">
-              <img src={w3} alt="mobile" />
-              <h3> saree</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                159
-              </h6>
-            </div>
-            <div className="common-col col-tranding">
-              <img src={w4} alt="mobile" />
-              <h3> silver watch</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                239
-              </h6>
-            </div>
-            <div className="common-col col-tranding">
-              <img src={m5} alt="mobile" />
-              <h3>watch</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                539
-              </h6>
-            </div>
-            <div className="common-col col-tranding">
-              <img src={w6} alt="mobile" />
-              <h3>dress</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                899
-              </h6>
-            </div>
-            <div className="common-col col-tranding">
-              <img src={m6} alt="mobile" />
-              <h3>black watch</h3>
-              <h4>up to 20% off</h4>
-              <h6>
-                Now
-                <i className="fas fa-rupee-sign" />
-                999
-              </h6>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* footer */}
+          </Card>
+        );
+      })}
+
       <footer>
         <div className="footer-row">
           <div className="footer-col-1">

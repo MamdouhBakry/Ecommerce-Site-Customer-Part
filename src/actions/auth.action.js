@@ -8,7 +8,7 @@ export const userSignupFun = (user) => {
     let res;
     try {
       dispatch({ type: authConstants.SIGNUP_REQUEST });
-      res = await axiosInstance.post(`/signup`, user);
+      res = await axiosInstance.post("/signup", user);
       if (res.status === 201) {
         dispatch({ type: authConstants.SIGNUP_SUCCESS });
         const { token, user } = res.data;
@@ -26,11 +26,7 @@ export const userSignupFun = (user) => {
         dispatch({ type: authConstants.SIGNUP_FAILURE, payload: { error } });
       }
     } catch (error) {
-      const { data } = error.response;
-      dispatch({
-        type: authConstants.SIGNUP_FAILURE,
-        payload: { error: data.error },
-      });
+      console.log(error);
     }
   };
 };

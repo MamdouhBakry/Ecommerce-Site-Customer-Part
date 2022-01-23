@@ -2,7 +2,7 @@ import axiosInstance from "../helpers/axios";
 import { authConstants, cartConstants } from "./constants";
 
 // new update signup action
-export const signup = (user) => {
+export const userSignupFun = (user) => {
   console.log(user);
   return async (dispatch) => {
     let res;

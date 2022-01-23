@@ -10,7 +10,7 @@ import {
   DropdownMenu,
 } from "../MaterialUI";
 import { useDispatch, useSelector } from "react-redux";
-import { login, signout, signup as _signup } from "../../actions/auth.action";
+import { login, signout, userSignupFun } from "../../actions/auth.action";
 import { getCartItems } from "../../actions/cart.action";
 import { Link } from "react-router-dom";
 import Cart from "../UI/Cart";
@@ -40,7 +40,7 @@ const Header = (props) => {
     ) {
       return;
     }
-    dispatch(_signup(user));
+    dispatch(userSignupFun(user));
   };
 
   const userLogin = () => {

@@ -3,6 +3,7 @@ import { authConstants, cartConstants } from "./constants";
 
 // new update signup action
 export const signup = (user) => {
+  console.log(user);
   return async (dispatch) => {
     let res;
     try {

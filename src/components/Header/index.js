@@ -31,6 +31,7 @@ const Header = (props) => {
 
   const userSignup = () => {
     const user = { firstName, lastName, email, password };
+    console.log("user", user);
     if (
       firstName === "" ||
       lastName === "" ||

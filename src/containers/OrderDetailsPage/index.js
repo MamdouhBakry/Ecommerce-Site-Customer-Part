@@ -6,13 +6,7 @@ import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card";
 import Price from "../../components/UI/Price";
 import { generatePublicUrl } from "../../urlConfig";
-
 import "./style.css";
-
-/**
- * @author
- * @function OrderDetails
- **/
 
 const OrderDetailsPage = (props) => {
   const dispatch = useDispatch();

@@ -16,11 +16,6 @@ import AddressForm from "./AddressForm";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
-/**
- * @author
- * @function CheckoutPage
- **/
-
 const CheckoutStep = (props) => {
   return (
     <div className="checkoutStep">

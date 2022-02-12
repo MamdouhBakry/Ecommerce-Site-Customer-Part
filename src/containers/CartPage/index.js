@@ -4,7 +4,11 @@ import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card/index";
 import CartItem from "./CartItem";
 import PriceDetails from "../../components/PriceDetails/index";
-import { addToCart, getCartItems } from "../../actions/cart.action";
+import {
+  addToCart,
+  getCartItems,
+  removeCartItem,
+} from "../../actions/cart.action";
 import "./style.css";
 import { MaterialButton } from "../../components/MaterialUI";
 import { useNavigate } from "react-router-dom";
@@ -36,6 +40,12 @@ export default function CartPage(props) {
     const { name, price, img } = cartItems[_id];
     dispatch(addToCart({ _id, name, price, img }, -1));
   };
+  const onRemoveCartItem = (_id) => {
+    const payload = {
+      productId: _id,
+    };
+    dispatch(removeCartItem(payload));
+  };
   if (props.onlyCartItems) {
     return (
       <>
@@ -45,7 +55,7 @@ export default function CartPage(props) {
             cartItem={cartItems[key]}
             onQuantityInc={onQuantityIncrement}
             onQuantityDec={onQuantityDecrement}
-            // onRemoveCartItem={onRemoveCartItem}
+            onRemoveCartItem={onRemoveCartItem}
           />
         ))}
       </>
@@ -65,7 +75,7 @@ export default function CartPage(props) {
               cartItem={cartItems[key]}
               onQuantityInc={onQuantityIncrement}
               onQuantityDec={onQuantityDecrement}
-              // onRemoveCartItem={onRemoveCartItem}
+              onRemoveCartItem={onRemoveCartItem}
             />
           ))}
 

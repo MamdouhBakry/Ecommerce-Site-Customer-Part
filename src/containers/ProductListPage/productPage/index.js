@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import "./style.css";
 import Card from "../../../components/UI/Card";
+import { generatePublicUrl } from "../../../urlConfig";
 
 export default function ProductPage() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function ProductPage() {
                 href={banner.navigateTo}
                 styles={{ display: "block" }}
               >
-                <img src={banner.img} alt="" />
+                <img src={generatePublicUrl(banner.img)} alt="" />
               </a>
             );
           })}
@@ -64,7 +65,7 @@ export default function ProductPage() {
                     margin: "10px 3px 100px 35px",
                     objectFit: "contain",
                   }}
-                  src={product.img}
+                  src={generatePublicUrl(product.img)}
                   alt=""
                 />
               </Card>

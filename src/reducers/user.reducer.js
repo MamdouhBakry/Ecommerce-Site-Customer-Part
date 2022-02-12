@@ -74,6 +74,10 @@ export default (state = initState, action) => {
       };
       break;
     case userConstants.GET_USER_ORDER_DETAILS_REQUEST:
+      state = {
+        ...state,
+        orderFetching: true,
+      };
       break;
     case userConstants.GET_USER_ORDER_DETAILS_SUCCESS:
       state = {
